@@ -38,7 +38,8 @@ void setup() {
 }
 //////////////////////////////////////////
 void loop() {
-
+  while (digitalRead(button)==HIGH) {}
+  
 }
 //////////////////////////////////////////
 void initU() {
@@ -50,6 +51,38 @@ void initU() {
   delay(1000);
 }
 //////////////////////////////////////////
+void forward(int value) {
+  digitalWrite(rightM_In1,LOW);
+  digitalWrite(rightM_In2,HIGH);
+  digitalWrite(leftM_In1,HIGH);
+  digitalWrite(leftM_In2,LOW);
+  digitalWrite(leftM_PWM,abs(value));
+  digitalWrite(rightM_PWM,abs(value));
+}
+void backwards(int value) {
+  digitalWrite(rightM_In1,HIGH);
+  digitalWrite(rightM_In2,LOW);
+  digitalWrite(leftM_In1,LOW);
+  digitalWrite(leftM_In2,HIGH);
+  digitalWrite(leftM_PWM,abs(value));
+  digitalWrite(rightM_PWM,abs(value));
+}
+void turnRight(int value) {
+  digitalWrite(leftM_In1,HIGH);
+  digitalWrite(leftM_In2,LOW);
+  digitalWrite(rightM_In1,HIGH);
+  digitalWrite(rightM_In2,LOW);
+  digitalWrite(leftM_PWM,abs(value));
+  digitalWrite(rightM_PWM,abs(value));
+}
+void turnLeft(int value) {
+  digitalWrite(leftM_In1,LOW);
+  digitalWrite(leftM_In2,HIGH);
+  digitalWrite(rightM_In1,LOW);
+  digitalWrite(rightM_In2,HIGH);
+  digitalWrite(leftM_PWM,abs(value));
+  digitalWrite(rightM_PWM,abs(value));
+}
 void motorControl(int right, int left) {
   if (right>0) {
     digitalWrite(rightM_In1,LOW);
