@@ -1,3 +1,4 @@
+
 const char buzzer=9;
 const char button=12;
 const char leftM_In1=2;
@@ -38,29 +39,21 @@ void setup() {
 //////////////////////////////////////////
 void loop() {
   while (digitalRead(button)==HIGH) {}
-  forward(255);
-  delay(2000);
-  mStop();
-  delay(500);
-  turnRight(255);
-  //delay(420); table top
-  delay(500);
-  mStop();
-  delay(500);
-  forward(255);
-  delay(1000);
-  mStop();
-  delay(100);
-  turnLeft(255);
-  //delay(410); table top
-  delay(500);
-  mStop();
-  delay(500);
-  forward(255);
-  delay(1000);
-  mStop();
-  delay(100);
   
+}
+
+void alt() {
+  forward(1000,255);
+  mStop();
+  turnRight(500,255);
+  //delay(420); table top
+  mStop();
+  delay(500);
+  forward(1000,255);
+  mStop();
+  turnLeft(500,255);
+  //delay(410); table top
+  mStop();
 }
 //////////////////////////////////////////
 void initU() {
@@ -72,39 +65,43 @@ void initU() {
   delay(1000);
 }
 //////////////////////////////////////////
-void forward(int value) {
-  digitalWrite(rightM_In1,HIGH);
-  digitalWrite(rightM_In2,LOW);
+void forward(int udelay,int value) {
+  digitalWrite(rightM_In1,LOW);
+  digitalWrite(rightM_In2,HIGH);
   digitalWrite(leftM_In1,HIGH);
   digitalWrite(leftM_In2,LOW);
   digitalWrite(leftM_PWM,abs(value));
   digitalWrite(rightM_PWM,abs(value));
+  delay(udelay);
 }
-void backwards(int value) {
-  digitalWrite(rightM_In1,LOW);
-  digitalWrite(rightM_In2,HIGH);
+void backwards(int udelay,int value) {
+  digitalWrite(rightM_In1,HIGH);
+  digitalWrite(rightM_In2,LOW);
   digitalWrite(leftM_In1,LOW);
   digitalWrite(leftM_In2,HIGH);
   digitalWrite(leftM_PWM,abs(value));
   digitalWrite(rightM_PWM,abs(value));
+  delay(udelay);
 }
-void turnRight(int value) {
+void turnRight(int udelay,int value) {
   digitalWrite(leftM_In1,HIGH);
   digitalWrite(leftM_In2,LOW);
-  digitalWrite(rightM_In1,LOW);
-  digitalWrite(rightM_In2,HIGH);
-  digitalWrite(leftM_PWM,abs(value));
-  digitalWrite(rightM_PWM,abs(value));
-}
-void turnLeft(int value) {
-  digitalWrite(leftM_In1,LOW);
-  digitalWrite(leftM_In2,HIGH);
   digitalWrite(rightM_In1,HIGH);
   digitalWrite(rightM_In2,LOW);
   digitalWrite(leftM_PWM,abs(value));
   digitalWrite(rightM_PWM,abs(value));
+  delay(udelay);
 }
-void motorControl(int right, int left) {
+void turnLeft(int udelay,int value) {
+  digitalWrite(leftM_In1,LOW);
+  digitalWrite(leftM_In2,HIGH);
+  digitalWrite(rightM_In1,LOW);
+  digitalWrite(rightM_In2,HIGH);
+  digitalWrite(leftM_PWM,abs(value));
+  digitalWrite(rightM_PWM,abs(value));
+  delay(udelay);
+}
+void motorControl(int right, int left, ) {
   if (right>0) {
     digitalWrite(rightM_In1,LOW);
     digitalWrite(rightM_In2,HIGH);
@@ -132,5 +129,6 @@ void mStop() {
   digitalWrite(leftM_In2,HIGH);
   analogWrite(leftM_PWM,0);
   analogWrite(rightM_PWM,0);
+  delay(100);
 }
 //////////////////////////////////////////
