@@ -31,7 +31,6 @@ void setup() {
   pinMode(leftW,INPUT);
   pinMode(encodeR,INPUT_PULLUP);
   pinMode(encodeL,INPUT_PULLUP);
-
   pinMode(servo,OUTPUT);
 
   initU();
@@ -39,29 +38,51 @@ void setup() {
 //////////////////////////////////////////
 void loop() {
   while (digitalRead(button)==HIGH) {}
+  forward(255);
+  delay(2000);
+  mStop();
+  delay(500);
+  turnRight(255);
+  //delay(420); table top
+  delay(500);
+  mStop();
+  delay(500);
+  forward(255);
+  delay(1000);
+  mStop();
+  delay(100);
+  turnLeft(255);
+  //delay(410); table top
+  delay(500);
+  mStop();
+  delay(500);
+  forward(255);
+  delay(1000);
+  mStop();
+  delay(100);
   
 }
 //////////////////////////////////////////
 void initU() {
-  tone(buzzer, 440);
+  tone(buzzer,440);
   delay(50);
-  tone(buzzer, 880);
+  tone(buzzer,880);
   delay(100);
   noTone(buzzer);
   delay(1000);
 }
 //////////////////////////////////////////
 void forward(int value) {
-  digitalWrite(rightM_In1,LOW);
-  digitalWrite(rightM_In2,HIGH);
+  digitalWrite(rightM_In1,HIGH);
+  digitalWrite(rightM_In2,LOW);
   digitalWrite(leftM_In1,HIGH);
   digitalWrite(leftM_In2,LOW);
   digitalWrite(leftM_PWM,abs(value));
   digitalWrite(rightM_PWM,abs(value));
 }
 void backwards(int value) {
-  digitalWrite(rightM_In1,HIGH);
-  digitalWrite(rightM_In2,LOW);
+  digitalWrite(rightM_In1,LOW);
+  digitalWrite(rightM_In2,HIGH);
   digitalWrite(leftM_In1,LOW);
   digitalWrite(leftM_In2,HIGH);
   digitalWrite(leftM_PWM,abs(value));
@@ -70,16 +91,16 @@ void backwards(int value) {
 void turnRight(int value) {
   digitalWrite(leftM_In1,HIGH);
   digitalWrite(leftM_In2,LOW);
-  digitalWrite(rightM_In1,HIGH);
-  digitalWrite(rightM_In2,LOW);
+  digitalWrite(rightM_In1,LOW);
+  digitalWrite(rightM_In2,HIGH);
   digitalWrite(leftM_PWM,abs(value));
   digitalWrite(rightM_PWM,abs(value));
 }
 void turnLeft(int value) {
   digitalWrite(leftM_In1,LOW);
   digitalWrite(leftM_In2,HIGH);
-  digitalWrite(rightM_In1,LOW);
-  digitalWrite(rightM_In2,HIGH);
+  digitalWrite(rightM_In1,HIGH);
+  digitalWrite(rightM_In2,LOW);
   digitalWrite(leftM_PWM,abs(value));
   digitalWrite(rightM_PWM,abs(value));
 }
