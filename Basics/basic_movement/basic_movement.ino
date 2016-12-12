@@ -37,22 +37,38 @@ void setup() {
   initU();
 }
 //////////////////////////////////////////
+int turn=270;
 void loop() {
   while (digitalRead(button)==HIGH) {}
-  
-}
-
-void alt() {
-  forward(1000,255);
-  mStop();
-  turnRight(500,255);
-  //delay(420); table top
-  mStop();
   delay(500);
   forward(1000,255);
   mStop();
-  turnLeft(500,255);
+  turnRight(turn,255);
+  //delay(420); table top
+  mStop();
+  forward(1000,255);
+  mStop();
+  turnRight(turn,255);
+  mStop();
+  forward(1000,255);
+  mStop();
+  turnRight(turn,255);
+  mStop();
+  forward(1000,255);
+  mStop();
+  turnRight(turn,255);
+  mStop();
+  initU();
   //delay(410); table top
+}
+
+void alt() {
+  while (digitalRead(button)==HIGH) {}
+  for (int i; i<100; i++) {
+    int right=sin(i/3.14)*100+150;
+    int left=cos(i/5)*100+150;
+    motorControl(right,left,100);
+  }
   mStop();
 }
 //////////////////////////////////////////
@@ -101,7 +117,7 @@ void turnLeft(int udelay,int value) {
   digitalWrite(rightM_PWM,abs(value));
   delay(udelay);
 }
-void motorControl(int right, int left, ) {
+void motorControl(int right, int left, int udelay) {
   if (right>0) {
     digitalWrite(rightM_In1,LOW);
     digitalWrite(rightM_In2,HIGH);
@@ -120,6 +136,7 @@ void motorControl(int right, int left, ) {
   }
   analogWrite(leftM_PWM,abs(left));
   analogWrite(rightM_PWM,abs(right));
+  delay(udelay);
 }
 //////////////////////////////////////////
 void mStop() {
